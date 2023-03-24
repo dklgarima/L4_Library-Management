@@ -1,0 +1,114 @@
+import java.util.Scanner;
+public class Library {
+
+	public static void main(String[] args) {
+		String[] author = new String[20];
+		String[] title = new String[20];
+		String[] publisher = new String[20];
+		String[] ISBN = new String[20];
+		int pages[] = new int[20];
+		double price[] = new double[20];
+		double sum = 0;
+		int count = 0;
+		Scanner s = new Scanner(System.in);
+		
+		for (int i = 0; i < 20; i++) {
+
+			System.out.print("Enter the title of the book: ");
+			title[i] = s.nextLine();
+			
+			System.out.print("Enter the name of the author: ");
+			author[i] = s.nextLine();
+			
+			System.out.print("Enter the publisher of the book: ");
+			publisher[i] = s.nextLine();
+				
+			System.out.print("Enter the price of the book: ");
+			price[i] = s.nextDouble();
+			
+			System.out.print("Enter the pages of the book: ");
+			pages[i] = s.nextInt();
+			s.nextLine();
+			
+			System.out.print("Enter the ISBN of the book: ");
+			ISBN[i] = s.nextLine();
+			
+			count++;
+			
+			System.out.print("Enter \"nomore\" to stop entering data: ");
+			String answer = s.nextLine();
+		    if(answer.equalsIgnoreCase("nomore")) //Ignoring the case of the word "nomore".
+			{
+				break; //to break out of the terminal
+			}
+			
+		}
+		
+		System.out.println("Title \t \t" + "Author \t \t" + "Publisher \t " + "Price  " + "Pages "+ "ISBN \t \t");
+		System.out.println("====  \t \t" + "=====  \t \t" + "========= \t " + "=======" + "===== "+ "=====\t \t");
+		
+		for (int i = 0; i < count; i++) {
+			System.out.println(title[i]+ "\t" + author[i]+ " \t"+ publisher[i]+ "\t"+ "£" + price[i] + "\t" + pages[i] + "\t"+ ISBN[i]);
+		}
+		
+		
+		//For the total number of books
+		int total_books = count; 
+		System.out.println("The length of the array is: "+ total_books);
+		
+		//For the cost of total books
+		for( double num : price) {
+	         sum = sum + num;
+		}
+		System.out.println("The total cost of books are: "+sum);
+
+		//For the maximum cost of a book
+		double max = price[0];
+		for(int i = 0; i < count; i++)
+			{
+				if(max < price[i])
+				{
+					max = price[i];
+				}
+		}
+		System.out.println("The maximum cost of the book is: "+ max);
+		
+		//For the minimum cost of book
+		double min = price[0];
+		for(int i = 0; i < count; i++)
+		{
+			if(min > price[i])
+			{
+				min = price[i];
+			}
+		}
+		System.out.println("The minimum cost of the book is: "+ min);
+		
+		//For the book with highest page number
+		double high = pages[0];
+		for(int i = 0; i < count; i++)
+		{
+			if(high < pages[i])
+			{
+				high = pages[i];
+			}
+		}
+		System.out.println("The book with highest number of pages: "+ title[i]);	
+			
+		//For the book with lowest page number
+		double low = pages[0];
+		for(int i = 0; i < count; i++)
+		{
+			if(low > pages[i])
+			{
+				low = pages[i];
+			}
+		}
+		System.out.println("The book with highest number of pages: "+ title[i]);
+		
+		//For the average cost of the book
+		double average = (sum / total_books);
+				
+	}
+
+}

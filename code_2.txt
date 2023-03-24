@@ -1,0 +1,118 @@
+import java.io.*;
+import java.util.Scanner;
+public class assign_2_pt1 {
+	public static void main(String[] args) {
+		
+		String[] author = {"Graham Winter ", "Geoff Ferguson " , "Anthony Jones"};
+		String[] title = {"OOP programming", "QoS" , "Java First"};
+		String[] publisher = {"O’Reilly", "Wiley " , "Pearson"};
+		String[] ISBN = {"0471974555", "1991974123" , "4321567321"};
+		String[] splitText = new String[6];
+		int pages[] = {120, 80, 420}; 
+		double price[] = {32.50,12.99, 8.0}; 
+		
+		try {
+		      File myObj = new File("Lib.txt");
+		      if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		        System.out.println("File already exists.");
+		      }
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		try {
+		      FileWriter myWriter = new FileWriter("Lib.txt");
+		      
+		      for (int i = 0; i < 3; i++) {
+		      myWriter.write( title[i]  + author[i] + publisher[i] + price[i] + pages[i] + ISBN[i]);
+		      } 
+		      myWriter.close();
+		      System.out.println("Successfully wrote to the file.");
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		
+		String fname;
+	    Scanner scan = new Scanner(System.in);
+
+	    /* enter filename with extension to open and read its content */
+
+	    System.out.print("Enter File Name to Open (with extension like file.txt) : ");
+	    fname = scan.nextLine();
+
+	    /* this will reference only one line at a time */
+
+	    String line = null;
+	    try
+	    {
+	        /* FileReader reads text files in the default encoding */
+	        FileReader fileReader = new FileReader(fname);
+	       
+
+		    /*Scanner sReader = new Scanner(fileReader);
+		      while(sReader.hasNext())
+		      {
+		          String l = sReader.nextLine();
+		          String[] splitText = l.split("-");
+		      } */
+		      /* always wrap the FileReader in BufferedReader */
+		    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+	        
+	        while((line = bufferedReader.readLine()) != null)
+	        {
+	        	for (int i = 0; i < 3; i++) {
+	        		
+	    			System.out.println("\nTitle: " + title[i]);
+	    			System.out.println("Author: " + author[i]);
+	    			System.out.println("Publisher: " + publisher[i]);
+	    			System.out.println("Price: " + price[i]);
+	    			System.out.println("Pages: " + pages[i]);
+	    			System.out.println("ISBN: " + ISBN[i]);
+	    			System.out.println("-----------------------------------");
+	        	}
+	        }
+
+	        /* always close the file after use */
+	        bufferedReader.close();
+	    }
+	    catch(IOException ex)
+	    {
+	        System.out.println("Error reading file named '" + fname + "'");
+	    }
+	    while (fileReader.hasNext()) {
+	        String line = fileReader.nextLine();
+	        String[] splitText = line.split("-");
+	        if (splitText.length < 5) {
+	            System.out.println("One or more columns is entirely missing.");
+	            continue;     // skip this line
+	        }
+	        if (splitText[0].length == 0) {
+	            System.out.println("Title is missing");
+	        }
+	        if (splitText[1].length == 0) {
+	            System.out.println("Author is missing");
+	        }
+	        boolean isValidPrice = true;
+	        try {
+	            Double.parseDouble(splitText[2]);
+	        }
+	        catch (Exception e) {
+	            isValidPrice = false;
+	        }
+	        if (!isValidPrice) {
+	            System.out.println("Found an invalid price " + splitText[2] + " but expected a decimal.");
+	        }
+	        if (splitText[4].length != 11) {
+	            System.out.println("Found an invalid ISBN.");
+	        }
+	    }
+		
+			
+	}
+		
+}
+
